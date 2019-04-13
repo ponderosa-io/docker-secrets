@@ -1,0 +1,5 @@
+# syntax = docker/dockerfile:1.0-experimental
+
+FROM alpine:edge
+RUN --mount=type=secret,id=mycoolsecret,dst=/tmp/secret cat /tmp/secret
+RUN echo "/tmp listing:" && ls /tmp
