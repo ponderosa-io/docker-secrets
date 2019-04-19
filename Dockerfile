@@ -1,6 +1,6 @@
 FROM alpine:edge
-ADD secret /tmp/secret
-RUN cat /tmp/secret
+ADD file_containing_secrets.txt /tmp/file_containing_secrets.txt
+RUN cat /tmp/file_containing_secrets.txt
 RUN echo "pre-deletion /tmp listing:" && ls /tmp
-RUN rm /tmp/secret
+RUN rm /tmp/file_containing_secrets.txt
 RUN echo "post-deletion /tmp listing:" && ls /tmp

@@ -1,10 +1,10 @@
 TAG=foobar
 
 make-secret:
-	echo "mysecretcontents" > secret
+	echo "mysecretcontents" > file_containing_secrets.txt
 
-build : make-secret
-	docker build --no-cache -t ${TAG} .
+build-without-buildkit : make-secret
+	docker build --no-cache -f Dockerfile -t ${TAG} .
 
 build-with-buildkit : make-secret
-	DOCKER_BUILDKIT=1 docker build --secret id=mycoolsecret,src=secret --progress=plain --no-cache -f Dockerfile-buildkit -t ${TAG}-buildkit .
+	DOCKER_BUILDKIT=1 docker build --no-cache --secret id=mycoolsecret,src=file_containing_secrets.txt --progress=plain -f Dockerfile-buildkit -t ${TAG}-buildkit .
